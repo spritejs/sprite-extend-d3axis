@@ -8,16 +8,26 @@ if(fs.existsSync('./.babelrc')) {
 }
 
 module.exports = function (env = {}) {
+  const externals = {}
+  let filename = 'sprite-extend-d3axis.standalone.js'
+  if(!env.standalone) {
+    externals['sprite-core'] = 'spritejs'
+    filename = 'sprite-extend-d3axis.js'
+  }
+
   return {
     mode: env.production ? 'production' : 'none',
     entry: './src/entry',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'sprite-extend-d3axis.js',
+      filename,
       publicPath: '/js/',
       library: ['spritejs', 'Axis'],
       libraryTarget: 'umd',
     },
+    // resolve: {
+    //   aliasFields: ['wxapp'],
+    // },
 
     module: {
       rules: [
@@ -34,9 +44,7 @@ module.exports = function (env = {}) {
       /* Advanced module configuration (click to show) */
     },
 
-    externals: {
-      'sprite-core': 'spritejs',
-    },
+    externals,
     // Don't follow/bundle these modules, but request them at runtime from the environment
 
     stats: 'errors-only',

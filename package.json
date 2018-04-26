@@ -1,16 +1,14 @@
 {
   "name": "sprite-extend-d3axis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provide axis element for d3",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib && webpack --env.production",
+    "standalone": "babel src -d lib && webpack --env.standalone",
     "start": "webpack-dev-server --watch-poll",
     "prepublishOnly": "npm run build && node ./script/qcdn"
-  },
-  "browser": {
-    "sprite-core": "./node_modules/sprite-core/dist/sprite-core.module"
   },
   "author": "akira-cn",
   "license": "MIT",
@@ -33,6 +31,6 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "sprite-core": "^1.16.2"
+    "sprite-core": "^1.16.15"
   }
 }
