@@ -214,10 +214,6 @@ export default class Axis extends Group {
       this.attr({ticks})
     }
   }
-  render(t, drawingContext) {
-    const context = super.render(t, drawingContext)
-    return context
-  }
 }
 
 registerNodeType('axis', Axis)
