@@ -185,7 +185,7 @@ class AxisSpriteAttr extends Group.Attr {
   // set d3 scales, unsafe
   @attr
   set axisScales(val) {
-    this.clearCache()
+    this.subject.clearCache()
     this.saveObj('axisScales', val)
     ticksToD(this.subject)
   }
@@ -217,6 +217,11 @@ export default class Axis extends Group {
     if(ticks) {
       this.attr({ticks})
     }
+  }
+
+  cloneNode() {
+    const node = super.cloneNode()
+    node.attr('axisScales', this.attr('axisScales'))
   }
 }
 
