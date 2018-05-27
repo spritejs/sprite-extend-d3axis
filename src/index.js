@@ -11,6 +11,7 @@ function ticksToD(axis) {
   const originTicks = ticks.slice(0)
 
   let axisTicks = ticks.slice(0)
+
   if(axisScales.length) {
     axisTicks = axisTicks.map(tick => axisScales.reduce((v, s) => s(v), tick))
     axisTicks = axisTicks.filter(tick => tick >= 0)
@@ -181,12 +182,15 @@ class AxisSpriteAttr extends Group.Attr {
     ticksToD(this.subject)
   }
 
-  // set d3 scales
+  // set d3 scales, unsafe
   @attr
   set axisScales(val) {
     this.clearCache()
-    this.set('axisScales', val)
+    this.saveObj('axisScales', val)
     ticksToD(this.subject)
+  }
+  get axisScales() {
+    return this.loadObj('axisScales') || []
   }
 
   @attr

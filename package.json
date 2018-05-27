@@ -1,6 +1,6 @@
 {
   "name": "sprite-extend-d3axis",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Provide axis element for d3",
   "main": "lib/index.js",
   "scripts": {
