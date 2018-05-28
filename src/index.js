@@ -185,7 +185,7 @@ class AxisSpriteAttr extends Group.Attr {
   // set d3 scales, unsafe
   @attr
   set axisScales(val) {
-    this.subject.clearCache()
+    this.clearCache()
     this.saveObj('axisScales', val)
     ticksToD(this.subject)
   }
