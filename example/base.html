@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Demo</title>
+  <style>
+      #paper {
+        position: relative;
+        width: 600px;
+        height: 400px;
+      }
+  </style>
+</head>
+<body>
+  <div id="paper"></div>
+  <script src="https://s0.ssl.qhres.com/!e5d0e994/spritejs.min.js"></script>
+  <script src="/js/sprite-extend-d3axis.js"></script>
+  <script src="http://lib.baomitu.com/d3/4.13.0/d3.js"></script>
+  <script>
+  const paper = new spritejs.Scene('#paper', {viewport: [600, 400], resolution:[1200, 800]})
+  const Sprite = spritejs.Sprite,
+        Path = spritejs.Path,
+        Label = spritejs.Label,
+        Axis = spritejs.Axis
+
+  const axis = new Axis()
+  axis.attr({
+    pos: [600, 400],
+    color: 'blue',
+    direction: 'bottom',
+  })
+  paper.layer().append(axis)
+
+  const p = new Path()
+  p.attr({
+    d: 'M0 0 h100M0 0 v10M100 0 v10',
+    strokeColor: 'red',
+    pos: [600, 600],
+  })
+  paper.layer().append(p)
+
+  </script>
+</body>
+</html>

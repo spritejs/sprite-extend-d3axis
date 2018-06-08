@@ -48,7 +48,7 @@ function ticksToD(axis) {
     offsetX = 0,
     offsetX0 = 0
 
-  axis.remove()
+  axis.clear()
   ticks.forEach((data, i) => {
     if(originTicks.indexOf(data) === -1) return
 
