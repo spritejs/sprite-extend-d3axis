@@ -76,39 +76,61 @@ function ticksToD(axis) {
 
     const x = points[i]
 
+    function recalculatePos(x, y) {
+      const [w, h] = this.contentSize
+
+      this.attr({
+        pos: [x.call(null, w, h), y.call(null, w, h)]
+      })
+    }
+
     if (x != null) {
       if (direction === 'top') {
+        label.attr({
+          pos: [offsetX0 + x - Math.round(w / 2), 0]
+        })
         label.on('afterdraw', function() {
-          const [w, h] = this.contentSize
-          this.attr({
-            pos: [
-              offsetX0 + x - Math.round(w / 2),
-              -vLength - Math.round(h / 2)
-            ]
-          })
+          recalculatePos.call(
+            this,
+            (w, h) => offsetX0 + x - Math.round(w / 2),
+            (w, h) => -vLength - Math.round(h / 2)
+          )
         })
       } else if (direction === 'bottom') {
+        label.attr({
+          pos: [offsetX0 + x - Math.round(w / 2), vLength + 5]
+        })
+
         label.on('afterdraw', function() {
-          const [w, h] = this.contentSize
-          this.attr({
-            pos: [offsetX0 + x - Math.round(w / 2), vLength + 5]
-          })
+          recalculatePos.call(
+            this,
+            (w, h) => offsetX0 + x - Math.round(w / 2),
+            (w, h) => vLength + 5
+          )
         })
       } else if (direction === 'left') {
         label.text = ticks[ticksLength - 1 - i]
+        label.attr({
+          pos: [vLength + 5, x]
+        })
         label.on('afterdraw', function() {
-          const [w, h] = this.contentSize
-          this.attr({
-            pos: [vLength + 5, x - Math.round(h / 2)]
-          })
+          recalculatePos.call(
+            this,
+            (w, h) => vLength + 5,
+            (w, h) => x - Math.round(h / 2)
+          )
         })
       } else if (direction === 'right') {
         label.text = ticks[ticksLength - 1 - i]
+        label.attr({
+          pos: [0, x]
+        })
         label.on('afterdraw', function() {
-          const [w, h] = this.contentSize
-          this.attr({
-            pos: [-5 - vLength - w, x - Math.round(h / 2)]
-          })
+          recalculatePos.call(
+            this,
+            (w, h) => -5 - vLength - w,
+            (w, h) => x - Math.round(h / 2)
+          )
         })
       }
 
