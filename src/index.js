@@ -64,7 +64,7 @@ function ticksToD(axis) {
 
     label.text = data
     label.attr({ font, fillColor: color })
-    let [w, h] = label.contentSize
+    const [w, h] = label.contentSize
 
     offsetY = Math.max(offsetY, h)
     offsetX = Math.max(offsetX, w)
@@ -78,21 +78,21 @@ function ticksToD(axis) {
     if (x != null) {
       if (direction === 'top') {
         label.attr({
-          pos: [offsetX0 + x - Math.round(w / 2), -vLength - Math.round(h / 2)]
+          pos: [offsetX0 + x, -vLength]
         })
       } else if (direction === 'bottom') {
         label.attr({
-          pos: [offsetX0 + x - Math.round(w / 2), vLength + 5]
+          pos: [offsetX0 + x, vLength + 5]
         })
       } else if (direction === 'left') {
         x = length - x
         label.attr({
-          pos: [vLength + 5, x - Math.round(h / 2)]
+          pos: [vLength + 5, x]
         })
       } else if (direction === 'right') {
         x = length - x
         label.attr({
-          pos: [-5 - vLength - w, x - Math.round(h / 2)]
+          pos: [-5 - vLength, x]
         })
       }
 
