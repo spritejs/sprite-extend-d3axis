@@ -57,6 +57,19 @@ function ticksToD(axis) {
 
   axis.clear()
   const ticksLength = ticks.length
+  async function recalculatePos(x, y) {
+    if (this.hasUpdated) {
+      return
+    }
+
+    await this.layer.prepareRender().catch(e => {})
+
+    const [w, h] = this.contentSize
+    this.attr({
+      pos: [x.call(null, w, h), y.call(null, w, h)]
+    })
+    this.hasUpdated = true
+  }
 
   ticks.forEach((data, i) => {
     if (originTicks.indexOf(data) === -1) return
@@ -65,7 +78,7 @@ function ticksToD(axis) {
 
     label.text = data
     label.attr({ font, fillColor: color })
-    const [w, h] = label.contentSize
+    let [w, h] = label.contentSize
 
     offsetY = Math.max(offsetY, h)
     offsetX = Math.max(offsetX, w)
@@ -74,22 +87,14 @@ function ticksToD(axis) {
       offsetX0 = w
     }
 
-    const x = points[i]
-
-    function recalculatePos(x, y) {
-      const [w, h] = this.contentSize
-
-      this.attr({
-        pos: [x.call(null, w, h), y.call(null, w, h)]
-      })
-    }
+    let x = points[i]
 
     if (x != null) {
       if (direction === 'top') {
         label.attr({
-          pos: [offsetX0 + x - Math.round(w / 2), 0]
+          pos: [offsetX0 + x - Math.round(w / 2), -vLength - Math.round(h / 2)]
         })
-        label.on('afterdraw', function() {
+        label.on('beforedraw', function() {
           recalculatePos.call(
             this,
             (w, h) => offsetX0 + x - Math.round(w / 2),
@@ -101,7 +106,7 @@ function ticksToD(axis) {
           pos: [offsetX0 + x - Math.round(w / 2), vLength + 5]
         })
 
-        label.on('afterdraw', function() {
+        label.on('beforedraw', function() {
           recalculatePos.call(
             this,
             (w, h) => offsetX0 + x - Math.round(w / 2),
@@ -109,11 +114,11 @@ function ticksToD(axis) {
           )
         })
       } else if (direction === 'left') {
-        label.text = ticks[ticksLength - 1 - i]
+        x = length - x
         label.attr({
-          pos: [vLength + 5, x]
+          pos: [vLength + 5, x - Math.round(h / 2)]
         })
-        label.on('afterdraw', function() {
+        label.on('beforedraw', function() {
           recalculatePos.call(
             this,
             (w, h) => vLength + 5,
@@ -121,11 +126,11 @@ function ticksToD(axis) {
           )
         })
       } else if (direction === 'right') {
-        label.text = ticks[ticksLength - 1 - i]
+        x = length - x
         label.attr({
-          pos: [0, x]
+          pos: [-5 - vLength - w, x - Math.round(h / 2)]
         })
-        label.on('afterdraw', function() {
+        label.on('beforedraw', function() {
           recalculatePos.call(
             this,
             (w, h) => -5 - vLength - w,
@@ -154,13 +159,13 @@ function ticksToD(axis) {
   } else if (direction === 'left') {
     d = `M0 0 v${length}`
     points.forEach(point => {
-      d += `M0 ${point} h${vLength}`
+      d += `M0 ${length - point} h${vLength}`
     })
     rect = [0, offsetY / 2, vLength, length]
   } else if (direction === 'right') {
     d = `M${offsetX + 5} 0 v${length}`
     points.forEach(point => {
-      d += `M${offsetX + 5 - vLength} ${point} h${vLength}`
+      d += `M${offsetX + 5 - vLength} ${length - point} h${vLength}`
     })
 
     rect = [offsetX + 5, offsetY / 2, vLength, length]
@@ -173,7 +178,6 @@ function ticksToD(axis) {
     strokeColor: color,
     pos: [rect[0], rect[1]]
   })
-
   axis.appendChild(path)
 }
 
