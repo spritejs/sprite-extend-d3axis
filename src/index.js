@@ -56,20 +56,6 @@ function ticksToD(axis) {
     offsetX0 = 0
 
   axis.clear()
-  const ticksLength = ticks.length
-  async function recalculatePos(x, y) {
-    if (this.hasUpdated) {
-      return
-    }
-
-    await this.layer.prepareRender().catch(e => {})
-
-    const [w, h] = this.contentSize
-    this.attr({
-      pos: [x.call(null, w, h), y.call(null, w, h)]
-    })
-    this.hasUpdated = true
-  }
 
   ticks.forEach((data, i) => {
     if (originTicks.indexOf(data) === -1) return
@@ -94,48 +80,19 @@ function ticksToD(axis) {
         label.attr({
           pos: [offsetX0 + x - Math.round(w / 2), -vLength - Math.round(h / 2)]
         })
-        label.on('beforedraw', function() {
-          recalculatePos.call(
-            this,
-            (w, h) => offsetX0 + x - Math.round(w / 2),
-            (w, h) => -vLength - Math.round(h / 2)
-          )
-        })
       } else if (direction === 'bottom') {
         label.attr({
           pos: [offsetX0 + x - Math.round(w / 2), vLength + 5]
-        })
-
-        label.on('beforedraw', function() {
-          recalculatePos.call(
-            this,
-            (w, h) => offsetX0 + x - Math.round(w / 2),
-            (w, h) => vLength + 5
-          )
         })
       } else if (direction === 'left') {
         x = length - x
         label.attr({
           pos: [vLength + 5, x - Math.round(h / 2)]
         })
-        label.on('beforedraw', function() {
-          recalculatePos.call(
-            this,
-            (w, h) => vLength + 5,
-            (w, h) => x - Math.round(h / 2)
-          )
-        })
       } else if (direction === 'right') {
         x = length - x
         label.attr({
           pos: [-5 - vLength - w, x - Math.round(h / 2)]
-        })
-        label.on('beforedraw', function() {
-          recalculatePos.call(
-            this,
-            (w, h) => -5 - vLength - w,
-            (w, h) => x - Math.round(h / 2)
-          )
         })
       }
 
@@ -271,6 +228,26 @@ export default class Axis extends Group {
     if (ticks) {
       this.attr({ ticks })
     }
+  }
+
+  render(t, drawingContext) {
+    const direction = this.attr('direction')
+    const labels = this.children.filter(node => node.nodeType === 'label')
+
+    labels.forEach(label => {
+      const [w, h] = label.contentSize
+      const [x, y] = label.attr('pos')
+
+      if (direction === 'top' || direction === 'bottom') {
+        label.attr('pos', [x - Math.round(w / 2), y])
+      } else if (direction === 'left') {
+        label.attr('pos', [x, y - Math.round(h / 2)])
+      } else if (direction === 'right') {
+        label.attr('pos', [x - Math.round(w / 2), y - Math.round(h / 2)])
+      }
+    })
+
+    super.render(t, drawingContext)
   }
 
   cloneNode() {
