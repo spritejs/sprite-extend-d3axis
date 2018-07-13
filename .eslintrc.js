@@ -1,6 +1,7 @@
 module.exports = {
   globals: {
-
+    d3: true,
+    spritejs: true,
   },
   "extends":  "eslint-config-75team",
   rules: {
