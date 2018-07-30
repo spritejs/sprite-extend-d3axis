@@ -158,6 +158,8 @@ class AxisSpriteAttr extends Group.Attr {
 
       font: '24px Arial',
       axisScales: [],
+
+      tickFormat: d => d
     })
   }
 
@@ -193,7 +195,7 @@ class AxisSpriteAttr extends Group.Attr {
   @attr
   set ticks(ticks) {
     this.clearCache()
-    this.set('ticks', ticks.sort((a, b) => a - b))
+    this.set('ticks', ticks.map(this.tickFormat).sort((a, b) => a - b))
     ticksToD(this.subject)
   }
 
@@ -220,6 +222,15 @@ class AxisSpriteAttr extends Group.Attr {
   set color(val) {
     this.clearCache()
     this.set('color', val)
+    ticksToD(this.subject)
+  }
+
+  @attr
+  set tickFormat(fn) {
+    this.clearCache()
+    const ticks = this.ticks.map(fn)
+    this.set('ticks', ticks)
+    this.set('tickFormat', fn)
     ticksToD(this.subject)
   }
 }
