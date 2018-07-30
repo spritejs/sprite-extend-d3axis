@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib && webpack --env.production",
+    "build": "rm -rf lib/* && babel src -d lib && rm -rf dist/* && ./script/build.js",
     "standalone": "babel src -d lib && webpack --env.standalone",
     "start": "webpack-dev-server --watch-poll",
     "lint": "eslint src --fix",

@@ -1,5 +1,3 @@
 // for webpack build
 
-import Axis from './index'
-
-module.exports = Axis
+export { default } from './index'

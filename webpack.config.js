@@ -1,18 +1,19 @@
 const path = require('path')
 const fs = require('fs')
 
-let babelConf
-if(fs.existsSync('./.babelrc')) {
-  // use babel
-  babelConf = JSON.parse(fs.readFileSync('.babelrc'))
-}
-
 module.exports = function (env = {}) {
+  let babelConf
+  const babelRC = env.esnext ? './.es6.babelrc' : './.babelrc'
+  if(fs.existsSync(babelRC)) {
+    babelConf = JSON.parse(fs.readFileSync(babelRC))
+    babelConf.babelrc = false
+  }
+
   const externals = {}
   let filename = 'sprite-extend-d3axis.standalone.js'
   if(!env.standalone) {
     externals['sprite-core'] = 'spritejs'
-    filename = 'sprite-extend-d3axis.js'
+    filename = env.esnext ? 'sprite-extend-d3axis.es6.js' : 'sprite-extend-d3axis.js'
   }
 
   return {
