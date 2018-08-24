@@ -3,5 +3,5 @@
 This is a spritejs extension provide d3 axis.
 
 ```html
-<script src="https://s2.ssl.qhres.com/!b8cabd1a/sprite-extend-d3axis.js"></script>
+<script src="https://s4.ssl.qhres.com/!2255faa3/sprite-extend-d3axis.js"></script>
 ```
