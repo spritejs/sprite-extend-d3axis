@@ -11,19 +11,24 @@ module.exports = function (env = {}) {
 
   const externals = {}
   let filename = 'sprite-extend-d3axis.standalone.js'
+  let library = ['spritejs']
+  let entry = './src/standalone'
+
   if(!env.standalone) {
-    externals['sprite-core'] = 'spritejs'
+    externals.spritejs = 'spritejs'
     filename = env.esnext ? 'sprite-extend-d3axis.es6.js' : 'sprite-extend-d3axis.js'
+    library = ['spritejs', 'Axis']
+    entry = './src/entry'
   }
 
   return {
     mode: env.production ? 'production' : 'none',
-    entry: './src/entry',
+    entry,
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename,
       publicPath: '/js/',
-      library: ['spritejs', 'Axis'],
+      library,
       libraryTarget: 'umd',
     },
     // resolve: {
@@ -34,7 +39,7 @@ module.exports = function (env = {}) {
       rules: [
         {
           test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /node_modules\/(?!(spritejs)).*/,
           use: {
             loader: 'babel-loader',
             options: babelConf,

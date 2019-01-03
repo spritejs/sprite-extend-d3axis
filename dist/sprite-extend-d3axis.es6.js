@@ -81,16 +81,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _index__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+/***/ (function(module, exports, __webpack_require__) {
 
 // for webpack build
 
+const Axis = __webpack_require__(1);
 
+module.exports = Axis.default;
 
 /***/ }),
 /* 1 */
@@ -101,8 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Axis; });
 /* harmony import */ var babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sprite_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var sprite_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sprite_core__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var spritejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
+/* harmony import */ var spritejs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(spritejs__WEBPACK_IMPORTED_MODULE_1__);
 
 
 var _dec, _dec2, _desc, _value, _class, _class2, _temp;
@@ -110,7 +107,7 @@ var _dec, _dec2, _desc, _value, _class, _class2, _temp;
 const _applyDecoratedDescriptor = __webpack_require__(28);
 
 
-const { parseStringFloat, parseColorString, parseValue, attr } = sprite_core__WEBPACK_IMPORTED_MODULE_1__["utils"];
+const { parseStringFloat, parseColorString, parseValue, attr } = spritejs__WEBPACK_IMPORTED_MODULE_1__["utils"];
 
 function ticksToD(axis) {
   if (!axis) return;
@@ -171,7 +168,7 @@ function ticksToD(axis) {
   ticks.forEach((data, i) => {
     if (originTicks.indexOf(data) === -1) return;
 
-    const label = new sprite_core__WEBPACK_IMPORTED_MODULE_1__["Label"]();
+    const label = new spritejs__WEBPACK_IMPORTED_MODULE_1__["Label"]();
 
     label.text = data;
     label.attr({ font, fillColor: color });
@@ -243,7 +240,7 @@ function ticksToD(axis) {
     rect = [offsetX + 5, offsetY / 2, vLength, length];
   }
 
-  const path = new sprite_core__WEBPACK_IMPORTED_MODULE_1__["Path"]();
+  const path = new spritejs__WEBPACK_IMPORTED_MODULE_1__["Path"]();
   path.attr({
     d,
     lineWidth,
@@ -253,7 +250,7 @@ function ticksToD(axis) {
   axis.appendChild(path);
 }
 
-let AxisSpriteAttr = (_dec = parseValue(parseStringFloat), _dec2 = parseValue(parseColorString), (_class = class AxisSpriteAttr extends sprite_core__WEBPACK_IMPORTED_MODULE_1__["Group"].Attr {
+let AxisSpriteAttr = (_dec = parseValue(parseStringFloat), _dec2 = parseValue(parseColorString), (_class = class AxisSpriteAttr extends spritejs__WEBPACK_IMPORTED_MODULE_1__["Group"].Attr {
   constructor(subject) {
     super(subject);
 
@@ -335,7 +332,7 @@ let AxisSpriteAttr = (_dec = parseValue(parseStringFloat), _dec2 = parseValue(pa
     ticksToD(this.subject);
   }
 }, (_applyDecoratedDescriptor(_class.prototype, 'font', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'font'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'direction', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'direction'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'length', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'length'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'vLength', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'vLength'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'ticks', [_dec, attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'ticks'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'axisScales', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'axisScales'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'lineWidth', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'lineWidth'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'color', [_dec2, attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'color'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'textFormat', [attr], babel_runtime_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(_class.prototype, 'textFormat'), _class.prototype)), _class));
-let Axis = (_temp = _class2 = class Axis extends sprite_core__WEBPACK_IMPORTED_MODULE_1__["Group"] {
+let Axis = (_temp = _class2 = class Axis extends spritejs__WEBPACK_IMPORTED_MODULE_1__["Group"] {
 
   constructor(ticks = [0, 100], opts) {
     super(opts);
@@ -352,7 +349,7 @@ let Axis = (_temp = _class2 = class Axis extends sprite_core__WEBPACK_IMPORTED_M
 
 
 
-Object(sprite_core__WEBPACK_IMPORTED_MODULE_1__["registerNodeType"])('axis', Axis);
+Object(spritejs__WEBPACK_IMPORTED_MODULE_1__["registerNodeType"])('axis', Axis);
 
 /***/ }),
 /* 2 */

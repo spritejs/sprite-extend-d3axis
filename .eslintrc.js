@@ -5,6 +5,7 @@ module.exports = {
   },
   "extends":  "eslint-config-75team",
   rules: {
+    'import/prefer-default-export': 'off',
     // 'import/no-mutable-exports': 'off',
     'semi-style': ["error", "first"],
     // 禁止一个文件中在忽略空行和注释之后行数超过1500行

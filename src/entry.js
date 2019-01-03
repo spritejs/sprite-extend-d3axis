@@ -1,3 +1,5 @@
 // for webpack build
 
-export { default } from './index'
+const Axis = require('./index')
+
+module.exports = Axis.default

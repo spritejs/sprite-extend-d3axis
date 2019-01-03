@@ -5,5 +5,5 @@ const buildTask = require('./build-task')
 ;(async function () {
   await buildTask({esnext: true})
   await buildTask({production: true})
-  // await buildTask({standalone: true})
+  await buildTask({standalone: true})
 }())
